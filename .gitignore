@@ -22,3 +22,6 @@ venv/
 .env.*
 !.env.example
 *.log
+
+# GitHub-Pages-Build
+_site/
