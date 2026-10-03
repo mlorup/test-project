@@ -1,0 +1,262 @@
+<title>UBS Quartalsbild 2Q26</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Source+Serif+4:opsz,wght@8..60,500;8..60,600&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+/* Layout: Board-Briefing – Kernaussage oben, KPI-Leiste, dann zwei Spalten (Trend | Divisionen), Kapital & Agenda unten */
+:root {
+  --bg: #f5f6f8;
+  --surface: #ffffff;
+  --ink: #17202b;
+  --muted: #5b6676;
+  --line: #dde1e7;
+  --accent: #1f4e79;
+  --accent-soft: #d9e4ef;
+  --good: #1d7a4a;
+  --good-bg: #e2f2e9;
+  --warn: #9a6200;
+  --warn-bg: #fbefd7;
+  --bad: #b23a2e;
+  --bad-bg: #f8e1de;
+  --font-display: "Source Serif 4", Georgia, "Times New Roman", serif;
+  --font-body: "IBM Plex Sans", "Segoe UI", system-ui, sans-serif;
+  --font-data: "IBM Plex Mono", ui-monospace, "SFMono-Regular", Menlo, monospace;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #11161d; --surface: #19202a; --ink: #e8ecf1; --muted: #9aa5b4; --line: #2c3542;
+    --accent: #7fb0dc; --accent-soft: #24384d;
+    --good: #5cc48b; --good-bg: #173326; --warn: #e2ad4f; --warn-bg: #3a2c12; --bad: #ec8478; --bad-bg: #3d1f1b;
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #11161d; --surface: #19202a; --ink: #e8ecf1; --muted: #9aa5b4; --line: #2c3542;
+  --accent: #7fb0dc; --accent-soft: #24384d;
+  --good: #5cc48b; --good-bg: #173326; --warn: #e2ad4f; --warn-bg: #3a2c12; --bad: #ec8478; --bad-bg: #3d1f1b;
+  color-scheme: dark;
+}
+* { box-sizing: border-box; }
+body { background: var(--bg); color: var(--ink); font-family: var(--font-body); font-size: 15px; line-height: 1.5; }
+.wrap { max-width: 1180px; margin: 0 auto; padding-inline: 20px; padding-block: 28px 40px; display: grid; gap: 22px; }
+.num { font-family: var(--font-data); font-variant-numeric: tabular-nums; }
+.eyebrow { font-size: 12px; letter-spacing: .08em; text-transform: uppercase; color: var(--muted); font-weight: 500; }
+
+header { display: grid; gap: 10px; border-bottom: 1px solid var(--line); padding-bottom: 18px; }
+.meta { display: flex; flex-wrap: wrap; gap: 8px 18px; align-items: baseline; }
+h1 { font-family: var(--font-display); font-weight: 600; font-size: clamp(26px, 4vw, 36px); line-height: 1.15; margin: 0; text-wrap: balance; }
+.lede { max-width: 72ch; color: var(--muted); margin: 0; font-size: 16px; }
+.lede strong { color: var(--ink); font-weight: 600; }
+
+.kpis { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 12px; }
+@media (max-width: 820px) { .kpis { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+.kpi { background: var(--surface); border: 1px solid var(--line); border-radius: 6px; padding: 14px 16px; display: grid; gap: 4px; align-content: start; }
+.kpi .v { font-family: var(--font-data); font-size: 26px; font-weight: 500; letter-spacing: -.01em; }
+.kpi .v small { font-size: 14px; color: var(--muted); margin-left: 2px; }
+.kpi .d { font-size: 13px; color: var(--muted); display: flex; gap: 6px; align-items: center; flex-wrap: wrap; }
+
+.chip { display: inline-block; font-family: var(--font-data); font-size: 12px; padding: 1px 7px; border-radius: 999px; font-weight: 500; white-space: nowrap; }
+.chip.good { color: var(--good); background: var(--good-bg); }
+.chip.warn { color: var(--warn); background: var(--warn-bg); }
+.chip.bad { color: var(--bad); background: var(--bad-bg); }
+.chip.neutral { color: var(--accent); background: var(--accent-soft); }
+
+.grid2 { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 460px), 1fr)); gap: 18px; }
+section.panel { background: var(--surface); border: 1px solid var(--line); border-radius: 6px; padding: 18px 20px; display: grid; gap: 12px; align-content: start; min-width: 0; }
+h2 { font-family: var(--font-display); font-weight: 600; font-size: 20px; margin: 0; text-wrap: balance; }
+.panel-head { display: grid; gap: 2px; }
+.note { font-size: 13px; color: var(--muted); margin: 0; }
+
+svg text { fill: var(--muted); font-family: var(--font-body); font-size: 11px; }
+svg .lbl { fill: var(--ink); font-size: 12px; font-weight: 500; }
+svg .grid { stroke: var(--line); stroke-width: 1; }
+svg .bar { fill: var(--accent-soft); }
+svg .bar.hl { fill: var(--accent); }
+svg .bar.low { fill: var(--warn); opacity: .55; }
+.chart { width: 100%; height: auto; display: block; }
+
+.tbl-wrap { overflow-x: auto; }
+table { width: 100%; border-collapse: collapse; font-size: 14px; }
+th { text-align: left; font-weight: 500; font-size: 12px; letter-spacing: .06em; text-transform: uppercase; color: var(--muted); padding: 6px 8px; border-bottom: 1px solid var(--line); }
+td { padding: 9px 8px; border-bottom: 1px solid var(--line); vertical-align: middle; }
+td.r, th.r { text-align: right; }
+tr:last-child td { border-bottom: 0; }
+.mini { height: 8px; background: var(--accent-soft); border-radius: 2px; position: relative; min-width: 80px; }
+.mini span { position: absolute; inset: 0 auto 0 0; background: var(--accent); border-radius: 2px; }
+
+.meter { display: grid; gap: 8px; }
+.meter-track { position: relative; height: 14px; border-radius: 3px; background: var(--accent-soft); }
+.meter-fill { position: absolute; inset: 0 auto 0 0; background: var(--accent); border-radius: 3px; }
+.meter-mark { position: absolute; top: -4px; bottom: -4px; width: 2px; background: var(--ink); }
+.meter-scale { display: flex; justify-content: space-between; font-size: 12px; color: var(--muted); }
+
+.facts { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 10px 16px; margin: 0; }
+.facts div { display: grid; gap: 2px; }
+.facts dt { font-size: 12px; color: var(--muted); }
+.facts dd { margin: 0; font-family: var(--font-data); font-size: 17px; font-weight: 500; }
+
+.agenda { list-style: none; margin: 0; padding: 0; display: grid; gap: 10px; }
+.agenda li { display: grid; grid-template-columns: auto 1fr; gap: 10px; align-items: start; padding-bottom: 10px; border-bottom: 1px solid var(--line); }
+.agenda li:last-child { border-bottom: 0; padding-bottom: 0; }
+.agenda p { margin: 2px 0 0; color: var(--muted); font-size: 14px; }
+.agenda strong { font-weight: 600; }
+
+footer { font-size: 12px; color: var(--muted); border-top: 1px solid var(--line); padding-top: 14px; display: grid; gap: 6px; }
+footer p { margin: 0; max-width: 100ch; }
+@media (max-width: 520px) { .kpi .v { font-size: 22px; } section.panel { padding: 16px; } }
+</style>
+
+<div class="wrap">
+  <header>
+    <div class="meta">
+      <span class="eyebrow">Executive Board Briefing</span>
+      <span class="eyebrow">UBS Group · 2. Quartal 2026</span>
+      <span class="eyebrow">Stand: Quartalsbericht vom 29.07.2026</span>
+    </div>
+    <h1>Starkes Quartal, Integration fast abgeschlossen, Kapitalfrage offen</h1>
+    <p class="lede">Reingewinn <strong>USD 2,8 Mrd.</strong> (1H26: USD 5,8 Mrd.), bereinigter Vorsteuergewinn <strong>+45 % gegenüber Vorjahr</strong>. Alle Kerngeschäfte wachsen, das Investment Banking hat sich mehr als verdoppelt. Die harte Kernkapitalquote sank auf <strong>14,4 %</strong> und liegt damit nahe am Zielwert von rund 14 %. Die Schweizer Kapitalvorlage bleibt der grösste offene Punkt.</p>
+  </header>
+
+  <div class="kpis" aria-label="Kennzahlen 2Q26">
+    <div class="kpi"><span class="eyebrow">Reingewinn</span><span class="v">2,8<small>Mrd. USD</small></span><span class="d"><span class="chip good">+17 % ggü. 2Q25</span><span class="chip warn">−8 % ggü. 1Q26</span></span></div>
+    <div class="kpi"><span class="eyebrow">Ertrag (bereinigt)</span><span class="v">13,3<small>Mrd. USD</small></span><span class="d"><span class="chip good">+16 % ggü. Vorjahr</span>ausgewiesen 13,7</span></div>
+    <div class="kpi"><span class="eyebrow">Vorsteuergewinn (ber.)</span><span class="v">3,9<small>Mrd. USD</small></span><span class="d"><span class="chip good">+45 % ggü. Vorjahr</span>ausgewiesen 3,6</span></div>
+    <div class="kpi"><span class="eyebrow">Return on CET1 (ber.)</span><span class="v">16,4<small>%</small></span><span class="d">ausgewiesen 15,4 %</span></div>
+    <div class="kpi"><span class="eyebrow">Cost/Income (ber.)</span><span class="v">70,0<small>%</small></span><span class="d">Kosten ex Variable −7 %</span></div>
+    <div class="kpi"><span class="eyebrow">CET1-Quote</span><span class="v">14,4<small>%</small></span><span class="d"><span class="chip warn">−0,3 Pp. ggü. 1Q26</span>Ziel ≈ 14 %</span></div>
+    <div class="kpi"><span class="eyebrow">Invested Assets</span><span class="v">7,3<small>Bio. USD</small></span><span class="d"><span class="chip neutral">Rekordstand</span></span></div>
+    <div class="kpi"><span class="eyebrow">Net New Assets</span><span class="v">35,5<small>Mrd. USD</small></span><span class="d">GWM: ≈ 36 Mrd., 3 % annual.</span></div>
+  </div>
+
+  <div class="grid2">
+    <section class="panel" aria-labelledby="h-trend">
+      <div class="panel-head">
+        <span class="eyebrow">Ergebnisentwicklung</span>
+        <h2 id="h-trend">Reingewinn je Quartal, Mrd. USD</h2>
+      </div>
+      <svg id="trend" class="chart" viewBox="0 0 520 250" role="img" aria-label="Säulendiagramm Reingewinn: 2Q25 2,4; 3Q25 2,5; 4Q25 1,2; 1Q26 3,0; 2Q26 2,8 Milliarden USD"></svg>
+      <p class="note">4Q25 belastet durch Sondereffekte; Geschäftsjahr 2025 total USD 7,8 Mrd. Das 1. Halbjahr 2026 liegt mit USD 5,8 Mrd. bereits bei rund drei Vierteln davon.</p>
+    </section>
+
+    <section class="panel" aria-labelledby="h-div">
+      <div class="panel-head">
+        <span class="eyebrow">Divisionen · bereinigter Vorsteuergewinn 2Q26</span>
+        <h2 id="h-div">Alle Kerngeschäfte wachsen</h2>
+      </div>
+      <div class="tbl-wrap">
+        <table>
+          <thead><tr><th>Division</th><th class="r">Vorsteuergewinn</th><th style="width:30%">Anteil (USD-Divisionen)</th><th class="r">ggü. 2Q25</th></tr></thead>
+          <tbody>
+            <tr><td>Global Wealth Management</td><td class="r num">USD 2,0 Mrd.</td><td><div class="mini"><span style="width:100%"></span></div></td><td class="r"><span class="chip good">+38 %</span></td></tr>
+            <tr><td>Investment Bank</td><td class="r num">USD 1,2 Mrd.</td><td><div class="mini"><span style="width:60%"></span></div></td><td class="r"><span class="chip good">&gt; +100 %</span></td></tr>
+            <tr><td>Asset Management</td><td class="r num">USD 237 Mio.</td><td><div class="mini"><span style="width:12%"></span></div></td><td class="r"><span class="chip good">+9 %</span></td></tr>
+            <tr><td>Personal &amp; Corporate Banking</td><td class="r num">CHF 676 Mio.</td><td class="note">berichtet in CHF</td><td class="r"><span class="chip good">+21 %</span></td></tr>
+            <tr><td>Non-core and Legacy</td><td class="r num">Ertrag USD 42 Mio.</td><td class="note">Vorjahr: −92 Mio.</td><td class="r"><span class="chip neutral">Abbau</span></td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="note">Balken skaliert auf GWM = 100 %. P&amp;C rapportiert in CHF und ist daher nicht im Balkenvergleich.</p>
+    </section>
+  </div>
+
+  <div class="grid2">
+    <section class="panel" aria-labelledby="h-int">
+      <div class="panel-head">
+        <span class="eyebrow">Integration Credit Suisse</span>
+        <h2 id="h-int">Kosteneinsparungen: 93 % des Ziels erreicht</h2>
+      </div>
+      <div class="meter" role="img" aria-label="Kumulierte Bruttoeinsparungen USD 12,6 Mrd. von Ziel 13,5 Mrd.">
+        <div class="meter-track"><div class="meter-fill" style="width:93.3%"></div><div class="meter-mark" style="left:calc(100% - 2px)"></div></div>
+        <div class="meter-scale num"><span>0</span><span>12,6 erreicht</span><span>Ziel 13,5 Mrd. USD</span></div>
+      </div>
+      <dl class="facts">
+        <div><dt>Einsparungen 2Q26</dt><dd>1,1 Mrd.</dd></div>
+        <div><dt>Noch offen bis Ende 2026</dt><dd>0,9 Mrd.</dd></div>
+        <div><dt>Integrationskosten 2Q26</dt><dd>645 Mio.</dd></div>
+        <div><dt>Erwartet 2H26</dt><dd>≈ 750 Mio.</dd></div>
+      </dl>
+      <p class="note">Basis: Kostenbasis Ende 2022. Abschluss des Integrationsprogramms bis Ende 2026 geplant, Restkosten etwa hälftig auf 3Q und 4Q verteilt.</p>
+    </section>
+
+    <section class="panel" aria-labelledby="h-cap">
+      <div class="panel-head">
+        <span class="eyebrow">Kapital &amp; Aktionärsrendite</span>
+        <h2 id="h-cap">Polster vorhanden, Regulierung als Risiko</h2>
+        <p class="note">Zusätzlicher CET1-Bedarf je Szenario im Vergleich zum Rückkaufprogramm, Mrd. USD</p>
+      </div>
+      <svg id="capital" class="chart" viewBox="0 0 520 150" role="img" aria-label="Zusätzlicher CET1-Bedarf: Bundesrat-Vorschlag rund 20 Mrd. USD, Kompromiss 70 bis 80 Prozent rund 15 Mrd. USD, im Vergleich zum Rückkaufprogramm von 3 Mrd. USD"></svg>
+      <dl class="facts">
+        <div><dt>CET1-Quote 1Q26 → 2Q26</dt><dd>14,7 % → 14,4 %</dd></div>
+        <div><dt>CET1 Leverage Ratio</dt><dd>4,4 %</dd></div>
+        <div><dt>Aktienrückkauf</dt><dd>3 Mrd. USD</dd></div>
+        <div><dt>davon nächste 3 Monate</dt><dd>≥ 1 Mrd. USD</dd></div>
+      </dl>
+      <p class="note">Rückkauf bis spätestens Ende 2Q27, abhängig von Ergebnis, CET1-Quote um 14 % und dem Parlamentsentscheid zur Kapitalisierung der Auslandstöchter.</p>
+    </section>
+  </div>
+
+  <section class="panel" aria-labelledby="h-agenda">
+    <div class="panel-head">
+      <span class="eyebrow">Für die Diskussion</span>
+      <h2 id="h-agenda">Punkte mit Entscheidungs- oder Beobachtungsbedarf</h2>
+    </div>
+    <ul class="agenda">
+      <li><span class="chip bad">Hoch</span><div><strong>Schweizer Kapitalvorlage</strong><p>Vollständige Unterlegung der Auslandstöchter würde rund USD 20 Mrd. zusätzliches CET1 erfordern, der Kompromiss (70–80 %) rund USD 15 Mrd. Auswirkungen auf Ausschüttungspolitik und Standortstrategie vorbereiten.</p></div></li>
+      <li><span class="chip warn">Mittel</span><div><strong>CET1-Quote nahe Zielwert</strong><p>14,4 % lässt wenig Spielraum über dem Ziel von rund 14 %. Tempo des Rückkaufs an Ergebnisentwicklung im 3Q koppeln.</p></div></li>
+      <li><span class="chip warn">Mittel</span><div><strong>Integrationsabschluss 2H26</strong><p>Letzte USD 0,9 Mrd. Einsparungen und rund USD 750 Mio. Restkosten. Risiko liegt in Systemmigration und Personalabbau, nicht im Volumen.</p></div></li>
+      <li><span class="chip good">Positiv</span><div><strong>Wachstumsdynamik halten</strong><p>Investment Bank mehr als verdoppelt, GWM +38 % und Rekord-Invested-Assets. Prüfen, wie viel davon marktgetrieben ist und im 2H26 nachhaltig bleibt.</p></div></li>
+    </ul>
+  </section>
+
+  <footer>
+    <p><strong>Hinweis:</strong> Unabhängige Zusammenstellung aus öffentlich verfügbaren Quellen (Quartalsmitteilung 2Q26 vom 29.07.2026, Earnings-Call, Medienberichte). Kein offizielles Dokument der UBS. „Bereinigt“ entspricht dem von UBS berichteten „underlying“-Wert. Prozentveränderungen beim Reingewinn wurden aus gerundeten Werten berechnet.</p>
+    <p>Bewertungen in „Für die Diskussion“ sind Einschätzungen des Erstellers, keine Aussagen der Bank. Vor Verwendung im Gremium bitte mit dem Originalbericht abgleichen.</p>
+  </footer>
+</div>
+
+<script>
+(function () {
+  const NS = "http://www.w3.org/2000/svg";
+  function el(tag, attrs, text) {
+    const n = document.createElementNS(NS, tag);
+    for (const k in attrs) n.setAttribute(k, attrs[k]);
+    if (text != null) n.textContent = text;
+    return n;
+  }
+  const fmt = v => v.toFixed(1).replace(".", ",");
+
+  // Reingewinn je Quartal
+  const q = [["2Q25", 2.4], ["3Q25", 2.5], ["4Q25", 1.2], ["1Q26", 3.0], ["2Q26", 2.8]];
+  const t = document.getElementById("trend");
+  const L = 36, R = 510, T = 18, B = 218, max = 3.5;
+  const y = v => B - (v / max) * (B - T);
+  for (let g = 0; g <= 3; g++) {
+    t.appendChild(el("line", { x1: L, x2: R, y1: y(g), y2: y(g), class: "grid" }));
+    t.appendChild(el("text", { x: L - 8, y: y(g) + 4, "text-anchor": "end" }, g));
+  }
+  const step = (R - L) / q.length, bw = step * 0.56;
+  q.forEach(([label, v], i) => {
+    const x = L + i * step + (step - bw) / 2;
+    const cls = i === q.length - 1 ? "bar hl" : (v < 2 ? "bar low" : "bar");
+    t.appendChild(el("rect", { x, y: y(v), width: bw, height: B - y(v), class: cls, rx: 2 }));
+    t.appendChild(el("text", { x: x + bw / 2, y: y(v) - 6, "text-anchor": "middle", class: "lbl" }, fmt(v)));
+    t.appendChild(el("text", { x: x + bw / 2, y: B + 18, "text-anchor": "middle" }, label));
+  });
+
+  // Kapitalbedarf vs. Rückkauf
+  const c = document.getElementById("capital");
+  const rows = [["Bundesrat (100 %)", 20, "bar low"], ["Kompromiss 70–80 %", 15, "bar low"], ["Rückkauf 2026/27", 3, "bar hl"]];
+  const cx0 = 160, cx1 = 460, cmax = 20;
+  const cx = v => cx0 + (v / cmax) * (cx1 - cx0);
+  [0, 5, 10, 15, 20].forEach(g => {
+    c.appendChild(el("line", { x1: cx(g), x2: cx(g), y1: 6, y2: 118, class: "grid" }));
+    c.appendChild(el("text", { x: cx(g), y: 136, "text-anchor": "middle" }, g));
+  });
+  rows.forEach(([label, v, cls], i) => {
+    const yy = 14 + i * 36;
+    c.appendChild(el("text", { x: cx0 - 10, y: yy + 15, "text-anchor": "end", class: "lbl" }, label));
+    c.appendChild(el("rect", { x: cx0, y: yy, width: cx(v) - cx0, height: 22, class: cls, rx: 2 }));
+    c.appendChild(el("text", { x: cx(v) + 6, y: yy + 15, class: "lbl" }, "≈ " + v));
+  });
+})();
+</script>
