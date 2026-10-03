@@ -13,6 +13,8 @@ cd test-project
 
 ```
 .
+├── dashboard/      # Board-Dashboards UBS 2Q26 und Swiss Life HJ 2026
+├── quiz/           # Multiple-Choice-Quiz zu den Dashboards
 ├── .editorconfig   # Einheitliche Editor-Einstellungen
 ├── .gitignore      # Von Git ignorierte Dateien
 └── README.md
