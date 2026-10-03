@@ -1,0 +1,262 @@
+<title>Swiss Life Halbjahresbild 2026</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Source+Serif+4:opsz,wght@8..60,500;8..60,600&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+/* Layout: Board-Briefing – Kernaussage oben, KPI-Leiste, dann zwei Spalten (Trend | Divisionen), Kapital & Agenda unten */
+:root {
+  --bg: #f5f6f8;
+  --surface: #ffffff;
+  --ink: #17202b;
+  --muted: #5b6676;
+  --line: #dde1e7;
+  --accent: #1f4e79;
+  --accent-soft: #d9e4ef;
+  --good: #1d7a4a;
+  --good-bg: #e2f2e9;
+  --warn: #9a6200;
+  --warn-bg: #fbefd7;
+  --bad: #b23a2e;
+  --bad-bg: #f8e1de;
+  --font-display: "Source Serif 4", Georgia, "Times New Roman", serif;
+  --font-body: "IBM Plex Sans", "Segoe UI", system-ui, sans-serif;
+  --font-data: "IBM Plex Mono", ui-monospace, "SFMono-Regular", Menlo, monospace;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #11161d; --surface: #19202a; --ink: #e8ecf1; --muted: #9aa5b4; --line: #2c3542;
+    --accent: #7fb0dc; --accent-soft: #24384d;
+    --good: #5cc48b; --good-bg: #173326; --warn: #e2ad4f; --warn-bg: #3a2c12; --bad: #ec8478; --bad-bg: #3d1f1b;
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #11161d; --surface: #19202a; --ink: #e8ecf1; --muted: #9aa5b4; --line: #2c3542;
+  --accent: #7fb0dc; --accent-soft: #24384d;
+  --good: #5cc48b; --good-bg: #173326; --warn: #e2ad4f; --warn-bg: #3a2c12; --bad: #ec8478; --bad-bg: #3d1f1b;
+  color-scheme: dark;
+}
+* { box-sizing: border-box; }
+body { background: var(--bg); color: var(--ink); font-family: var(--font-body); font-size: 15px; line-height: 1.5; }
+.wrap { max-width: 1180px; margin: 0 auto; padding-inline: 20px; padding-block: 28px 40px; display: grid; gap: 22px; }
+.num { font-family: var(--font-data); font-variant-numeric: tabular-nums; }
+.eyebrow { font-size: 12px; letter-spacing: .08em; text-transform: uppercase; color: var(--muted); font-weight: 500; }
+
+header { display: grid; gap: 10px; border-bottom: 1px solid var(--line); padding-bottom: 18px; }
+.meta { display: flex; flex-wrap: wrap; gap: 8px 18px; align-items: baseline; }
+h1 { font-family: var(--font-display); font-weight: 600; font-size: clamp(26px, 4vw, 36px); line-height: 1.15; margin: 0; text-wrap: balance; }
+.lede { max-width: 72ch; color: var(--muted); margin: 0; font-size: 16px; }
+.lede strong { color: var(--ink); font-weight: 600; }
+
+.kpis { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 12px; }
+@media (max-width: 820px) { .kpis { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+.kpi { background: var(--surface); border: 1px solid var(--line); border-radius: 6px; padding: 14px 16px; display: grid; gap: 4px; align-content: start; }
+.kpi .v { font-family: var(--font-data); font-size: 26px; font-weight: 500; letter-spacing: -.01em; }
+.kpi .v small { font-size: 14px; color: var(--muted); margin-left: 2px; }
+.kpi .d { font-size: 13px; color: var(--muted); display: flex; gap: 6px; align-items: center; flex-wrap: wrap; }
+
+.chip { display: inline-block; font-family: var(--font-data); font-size: 12px; padding: 1px 7px; border-radius: 999px; font-weight: 500; white-space: nowrap; }
+.chip.good { color: var(--good); background: var(--good-bg); }
+.chip.warn { color: var(--warn); background: var(--warn-bg); }
+.chip.bad { color: var(--bad); background: var(--bad-bg); }
+.chip.neutral { color: var(--accent); background: var(--accent-soft); }
+
+.grid2 { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 460px), 1fr)); gap: 18px; }
+section.panel { background: var(--surface); border: 1px solid var(--line); border-radius: 6px; padding: 18px 20px; display: grid; gap: 12px; align-content: start; min-width: 0; }
+h2 { font-family: var(--font-display); font-weight: 600; font-size: 20px; margin: 0; text-wrap: balance; }
+.panel-head { display: grid; gap: 2px; }
+.note { font-size: 13px; color: var(--muted); margin: 0; }
+
+svg text { fill: var(--muted); font-family: var(--font-body); font-size: 11px; }
+svg .lbl { fill: var(--ink); font-size: 12px; font-weight: 500; }
+svg .grid { stroke: var(--line); stroke-width: 1; }
+svg .bar { fill: var(--accent-soft); }
+svg .bar.hl { fill: var(--accent); }
+svg .bar.low { fill: var(--warn); opacity: .55; }
+.chart { width: 100%; height: auto; display: block; }
+
+.tbl-wrap { overflow-x: auto; }
+table { width: 100%; border-collapse: collapse; font-size: 14px; }
+th { text-align: left; font-weight: 500; font-size: 12px; letter-spacing: .06em; text-transform: uppercase; color: var(--muted); padding: 6px 8px; border-bottom: 1px solid var(--line); }
+td { padding: 9px 8px; border-bottom: 1px solid var(--line); vertical-align: middle; }
+td.r, th.r { text-align: right; }
+tr:last-child td { border-bottom: 0; }
+.mini { height: 8px; background: var(--accent-soft); border-radius: 2px; position: relative; min-width: 80px; }
+.mini span { position: absolute; inset: 0 auto 0 0; background: var(--accent); border-radius: 2px; }
+
+.meter { display: grid; gap: 8px; }
+.meter-track { position: relative; height: 14px; border-radius: 3px; background: var(--accent-soft); }
+.meter-fill { position: absolute; inset: 0 auto 0 0; background: var(--accent); border-radius: 3px; }
+.meter-mark { position: absolute; top: -4px; bottom: -4px; width: 2px; background: var(--ink); }
+.meter-scale { display: flex; justify-content: space-between; font-size: 12px; color: var(--muted); }
+
+.facts { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 10px 16px; margin: 0; }
+.facts div { display: grid; gap: 2px; }
+.facts dt { font-size: 12px; color: var(--muted); }
+.facts dd { margin: 0; font-family: var(--font-data); font-size: 17px; font-weight: 500; }
+
+.agenda { list-style: none; margin: 0; padding: 0; display: grid; gap: 10px; }
+.agenda li { display: grid; grid-template-columns: auto 1fr; gap: 10px; align-items: start; padding-bottom: 10px; border-bottom: 1px solid var(--line); }
+.agenda li:last-child { border-bottom: 0; padding-bottom: 0; }
+.agenda p { margin: 2px 0 0; color: var(--muted); font-size: 14px; }
+.agenda strong { font-weight: 600; }
+
+footer { font-size: 12px; color: var(--muted); border-top: 1px solid var(--line); padding-top: 14px; display: grid; gap: 6px; }
+footer p { margin: 0; max-width: 100ch; }
+@media (max-width: 520px) { .kpi .v { font-size: 22px; } section.panel { padding: 16px; } }
+</style>
+
+<div class="wrap">
+  <header>
+    <div class="meta">
+      <span class="eyebrow">Executive Board Briefing</span>
+      <span class="eyebrow">Swiss Life Group · Halbjahr 2026</span>
+      <span class="eyebrow">Stand: Halbjahresergebnis vom 01.09.2026</span>
+    </div>
+    <h1>Mehr Gewinn, sehr starkes Kapital, Fee-Ziel 2027 unter Druck</h1>
+    <p class="lede">Reingewinn <strong>CHF 649 Mio. (+8 %)</strong>, Eigenkapitalrendite <strong>20,2 %</strong> und damit über dem Zielband von 17–19 %. Die SST-Quote liegt mit rund <strong>215 %</strong> deutlich über dem Ambitionsband. Das Fee-Ergebnis wächst um 11 %, liegt aber annualisiert noch klar unter dem Ziel von <strong>über CHF 1 Mrd. für 2027</strong>. Neu: Effizienzprogramm mit rund 600 Stellen weniger bis Ende 2028.</p>
+  </header>
+
+  <div class="kpis" aria-label="Kennzahlen Halbjahr 2026">
+    <div class="kpi"><span class="eyebrow">Reingewinn</span><span class="v">649<small>Mio. CHF</small></span><span class="d"><span class="chip good">+8 % ggü. HJ25</span>HJ25: 602</span></div>
+    <div class="kpi"><span class="eyebrow">Betriebsgewinn</span><span class="v">967<small>Mio. CHF</small></span><span class="d"><span class="chip good">+8 % in LW</span></span></div>
+    <div class="kpi"><span class="eyebrow">Fee-Ergebnis</span><span class="v">430<small>Mio. CHF</small></span><span class="d"><span class="chip good">+11 % in LW</span>inkl. 29 Mio. Einmaleffekt</span></div>
+    <div class="kpi"><span class="eyebrow">Eigenkapitalrendite</span><span class="v">20,2<small>%</small></span><span class="d"><span class="chip good">über Ziel 17–19 %</span>HJ25: 17,6 %</span></div>
+    <div class="kpi"><span class="eyebrow">SST-Quote</span><span class="v">≈ 215<small>%</small></span><span class="d"><span class="chip neutral">Ambition 140–190 %</span>Ende 2025: 213 %</span></div>
+    <div class="kpi"><span class="eyebrow">Prämien</span><span class="v">12,3<small>Mrd. CHF</small></span><span class="d"><span class="chip good">+3 % in LW</span></span></div>
+    <div class="kpi"><span class="eyebrow">Fee-Ertrag</span><span class="v">1,34<small>Mrd. CHF</small></span><span class="d"><span class="chip good">+7 %</span></span></div>
+    <div class="kpi"><span class="eyebrow">NNA Drittkunden (TPAM)</span><span class="v">7,2<small>Mrd. CHF</small></span><span class="d"><span class="chip warn">HJ25: 13,2</span>AuM 158 Mrd.</span></div>
+  </div>
+
+  <div class="grid2">
+    <section class="panel" aria-labelledby="h-trend">
+      <div class="panel-head">
+        <span class="eyebrow">Ergebnisentwicklung</span>
+        <h2 id="h-trend">Reingewinn je erstes Halbjahr, Mio. CHF</h2>
+      </div>
+      <svg id="trend" class="chart" viewBox="0 0 520 250" role="img" aria-label="Säulendiagramm Reingewinn erstes Halbjahr: 2024 632, 2025 602, 2026 649 Millionen CHF"></svg>
+      <p class="note">HJ25 gedämpft durch CHF 36 Mio. höhere Steuern. Geschäftsjahr 2025 total: Reingewinn CHF 1,26 Mrd., Betriebsgewinn CHF 1,83 Mrd.</p>
+    </section>
+
+    <section class="panel" aria-labelledby="h-div">
+      <div class="panel-head">
+        <span class="eyebrow">Segmente · Segmentergebnis HJ26</span>
+        <h2 id="h-div">Alle Segmente im Plus, International am stärksten</h2>
+      </div>
+      <div class="tbl-wrap">
+        <table>
+          <thead><tr><th>Segment</th><th class="r">Ergebnis</th><th style="width:30%">Wachstum ggü. HJ25</th><th class="r">Veränd.</th></tr></thead>
+          <tbody>
+            <tr><td>Schweiz</td><td class="r num">CHF 469 Mio.</td><td><div class="mini"><span style="width:4.7%"></span></div></td><td class="r"><span class="chip good">+2 %</span></td></tr>
+            <tr><td>Frankreich</td><td class="r num">EUR 228 Mio.</td><td><div class="mini"><span style="width:20.9%"></span></div></td><td class="r"><span class="chip good">+9 %</span></td></tr>
+            <tr><td>Deutschland</td><td class="r num">EUR 125 Mio.</td><td><div class="mini"><span style="width:9.3%"></span></div></td><td class="r"><span class="chip good">+4 %</span></td></tr>
+            <tr><td>International</td><td class="r num">EUR 92 Mio.</td><td><div class="mini"><span style="width:100%"></span></div></td><td class="r"><span class="chip good">+43 %</span></td></tr>
+            <tr><td>Asset Managers</td><td class="r num">CHF 152 Mio.</td><td><div class="mini"><span style="width:9.3%"></span></div></td><td class="r"><span class="chip good">+4 %</span></td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="note">Segmente berichten in CHF bzw. EUR, Wachstum in Lokalwährung. Balken skaliert auf International (+43 %) = 100 %. International enthält den Gewinn aus dem Netzwerk-Transfer (CHF 29 Mio. auf Gruppenebene).</p>
+    </section>
+  </div>
+
+  <div class="grid2">
+    <section class="panel" aria-labelledby="h-int">
+      <div class="panel-head">
+        <span class="eyebrow">Strategie „Swiss Life 2027“</span>
+        <h2 id="h-int">Fee-Ergebnis: Lücke zum Ziel 2027</h2>
+      </div>
+      <svg id="fee" class="chart" viewBox="0 0 520 150" role="img" aria-label="Fee-Ergebnis: Geschäftsjahr 2025 858 Mio. CHF, Halbjahr 2026 hochgerechnet 860 Mio. CHF, Ziel 2027 über 1000 Mio. CHF"></svg>
+      <dl class="facts">
+        <div><dt>Eigenkapitalrendite (Ziel 17–19 %)</dt><dd>20,2 % ✓</dd></div>
+        <div><dt>Ausschüttungsquote (Ziel &gt; 75 %)</dt><dd>82 % ✓</dd></div>
+        <div><dt>Cash an Holding 2025–27 (Ziel)</dt><dd>3,6–3,8 Mrd.</dd></div>
+        <div><dt>davon 2025</dt><dd>1,22 Mrd.</dd></div>
+      </dl>
+      <p class="note">Hochrechnung HJ26 = Halbjahreswert × 2, ohne Saisonalität. Ohne den Einmalgewinn von CHF 29 Mio. läge sie bei rund CHF 800 Mio.</p>
+    </section>
+
+    <section class="panel" aria-labelledby="h-cap">
+      <div class="panel-head">
+        <span class="eyebrow">Kapital &amp; Aktionärsrendite</span>
+        <h2 id="h-cap">Kapital klar über dem Ambitionsband</h2>
+      </div>
+      <div class="meter" role="img" aria-label="SST-Quote rund 215 Prozent, Ambitionsband 140 bis 190 Prozent">
+        <div class="meter-track">
+          <div class="meter-fill" style="left:46.7%;width:33.3%;opacity:.35"></div>
+          <div class="meter-mark" style="left:calc(83.3% - 1px)"></div>
+        </div>
+        <div class="meter-scale num" style="position:relative;height:18px"><span style="position:absolute;left:0">100 %</span><span style="position:absolute;left:46.7%;transform:translateX(-50%)">140</span><span style="position:absolute;left:80%;transform:translateX(-50%)">190</span><span style="position:absolute;right:0">250 %</span></div>
+      </div>
+      <dl class="facts">
+        <div><dt>Dividende 2025 je Aktie</dt><dd>CHF 36.50</dd></div>
+        <div><dt>Rückkauf abgeschlossen (Mai 26)</dt><dd>750 Mio.</dd></div>
+        <div><dt>Neuer Rückkauf Okt 26 – Mär 27</dt><dd>250 Mio.</dd></div>
+        <div><dt>Effizienzprogramm ab 2029</dt><dd>≈ 150 Mio./Jahr</dd></div>
+      </dl>
+      <p class="note">Strich = SST-Quote ≈ 215 % per 30.06.2026 (Schätzung der Gesellschaft). Dunkler hinterlegt: Ambitionsband 140–190 %. Rund 600 Stellen weniger bis Ende 2028, je etwa zur Hälfte in der Schweiz und bei Asset Managers.</p>
+    </section>
+  </div>
+
+  <section class="panel" aria-labelledby="h-agenda">
+    <div class="panel-head">
+      <span class="eyebrow">Für die Diskussion</span>
+      <h2 id="h-agenda">Punkte mit Entscheidungs- oder Beobachtungsbedarf</h2>
+    </div>
+    <ul class="agenda">
+      <li><span class="chip bad">Hoch</span><div><strong>Fee-Ergebnis über CHF 1 Mrd. bis 2027</strong><p>2025 lag es bei CHF 858 Mio., die HJ26-Hochrechnung bei rund 860 Mio. inklusive Einmaleffekt. Für das Ziel braucht es im Jahr 2027 rund 16 % mehr. Hebel und Massnahmen konkretisieren oder Erwartungen am Markt anpassen.</p></div></li>
+      <li><span class="chip warn">Mittel</span><div><strong>Neugeld im Drittkundengeschäft halbiert</strong><p>TPAM-Zuflüsse CHF 7,2 Mrd. nach 13,2 Mrd. im Vorjahr. Das Vorjahr war aussergewöhnlich stark, der Trend ist aber für das Fee-Ziel relevant.</p></div></li>
+      <li><span class="chip warn">Mittel</span><div><strong>Umsetzung Effizienzprogramm</strong><p>Rund 600 Stellen bis Ende 2028, grossteils über natürliche Fluktuation. Kommunikation, Reputation und Know-how-Erhalt aktiv steuern. Einsparungen wirken erst ab 2029 voll.</p></div></li>
+      <li><span class="chip good">Positiv</span><div><strong>Kapitalüberschuss nutzen</strong><p>SST rund 215 % gegenüber Band 140–190 % und Eigenkapitalrendite über Ziel. Spielraum für Ausschüttungen, Wachstum oder Zukäufe im Fee-Geschäft prüfen.</p></div></li>
+    </ul>
+  </section>
+
+  <footer>
+    <p><strong>Hinweis:</strong> Unabhängige Zusammenstellung aus öffentlich verfügbaren Quellen (Halbjahresergebnis 2026 vom 01.09.2026, Jahresergebnis 2025, Earnings-Call, Medienberichte). Kein offizielles Dokument von Swiss Life. LW = Lokalwährung. SST = Swiss Solvency Test. TPAM = Third-Party Asset Management.</p>
+    <p>Bewertungen in „Für die Diskussion“ und die Hochrechnung des Fee-Ergebnisses sind Einschätzungen des Erstellers, keine Aussagen der Gesellschaft. Vor Verwendung im Gremium bitte mit dem Originalbericht abgleichen.</p>
+  </footer>
+</div>
+
+<script>
+(function () {
+  const NS = "http://www.w3.org/2000/svg";
+  function el(tag, attrs, text) {
+    const n = document.createElementNS(NS, tag);
+    for (const k in attrs) n.setAttribute(k, attrs[k]);
+    if (text != null) n.textContent = text;
+    return n;
+  }
+
+  // Reingewinn je erstes Halbjahr
+  const h = [["HJ 2024", 632], ["HJ 2025", 602], ["HJ 2026", 649]];
+  const t = document.getElementById("trend");
+  const L = 44, R = 510, T = 18, B = 218, max = 700;
+  const y = v => B - (v / max) * (B - T);
+  for (let g = 0; g <= 600; g += 200) {
+    t.appendChild(el("line", { x1: L, x2: R, y1: y(g), y2: y(g), class: "grid" }));
+    t.appendChild(el("text", { x: L - 8, y: y(g) + 4, "text-anchor": "end" }, g));
+  }
+  const step = (R - L) / h.length, bw = step * 0.5;
+  h.forEach(([label, v], i) => {
+    const x = L + i * step + (step - bw) / 2;
+    t.appendChild(el("rect", { x, y: y(v), width: bw, height: B - y(v), class: i === h.length - 1 ? "bar hl" : "bar", rx: 2 }));
+    t.appendChild(el("text", { x: x + bw / 2, y: y(v) - 6, "text-anchor": "middle", class: "lbl" }, v));
+    t.appendChild(el("text", { x: x + bw / 2, y: B + 18, "text-anchor": "middle" }, label));
+  });
+
+  // Fee-Ergebnis vs. Ziel 2027
+  const c = document.getElementById("fee");
+  const rows = [["GJ 2025", 858, "bar"], ["HJ26 hochgerechnet", 860, "bar hl"], ["Ziel 2027", 1000, "bar low"]];
+  const cx0 = 160, cx1 = 460, cmax = 1000;
+  const cx = v => cx0 + (v / cmax) * (cx1 - cx0);
+  [0, 250, 500, 750, 1000].forEach(g => {
+    c.appendChild(el("line", { x1: cx(g), x2: cx(g), y1: 6, y2: 118, class: "grid" }));
+    c.appendChild(el("text", { x: cx(g), y: 136, "text-anchor": "middle" }, g));
+  });
+  rows.forEach(([label, v, cls], i) => {
+    const yy = 14 + i * 36;
+    c.appendChild(el("text", { x: cx0 - 10, y: yy + 15, "text-anchor": "end", class: "lbl" }, label));
+    c.appendChild(el("rect", { x: cx0, y: yy, width: cx(v) - cx0, height: 22, class: cls, rx: 2 }));
+    c.appendChild(el("text", { x: cx(v) + 6, y: yy + 15, class: "lbl" }, (i === 2 ? "> " : "") + v));
+  });
+})();
+</script>
